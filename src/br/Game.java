@@ -7,6 +7,6 @@ public class Game {
 	private Display display;
 	
 	public Game() {
-		display = new Display("Space Invaders");
+		display = new Display("Space Invaders", 1200, 1000);
 	}
 }
