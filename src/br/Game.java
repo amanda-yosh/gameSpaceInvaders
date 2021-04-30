@@ -12,7 +12,7 @@ public class Game implements Runnable{
 	private Thread thread;
 	private boolean running = false;
 	
-	public static final int WIDTH = 1200, HEIGHT = 1000;
+	public static final int WIDTH = 800, HEIGHT = 1080;
 	
 	private StateManager sm;
 	
@@ -43,7 +43,7 @@ public class Game implements Runnable{
 				//MOMENTO DE ATUALIZAR A TELA
 				update();
 				render();
-				System.out.println("FPS = 60\nTempo de atualização: " + delta);
+				//System.out.println("FPS = 60\nTempo de atualização: " + delta);
 				delta--; //VOLTA A SER 0
 			}
 

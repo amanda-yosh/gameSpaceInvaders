@@ -11,6 +11,9 @@ public class StateManager implements KeyListener{
 	public static State[] states = new State[numberStates];
 	public static int currentState = 0;
 	
+	public static final int FPS = 0;
+	public static final int MENU = 1;
+	
 	public static void setState(int state) {
 		currentState = state;
 		states[currentState].init();
