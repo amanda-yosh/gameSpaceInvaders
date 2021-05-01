@@ -29,7 +29,7 @@ public class Game implements Runnable{
 
 	@Override
 	public void run() {
-		//ELEMENTO QUE SERÁ RODADO NA THREAD SEPARADA
+		//ELEMENTO QUE SERÁ RODADO NA THREAD PARA RENDERIZACAO DA TELA
 		
 		init();
 		int FPS = 60; //60 FRAMES POR SEGUNDO

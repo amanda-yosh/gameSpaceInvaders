@@ -12,7 +12,7 @@ public class Alien {
 	private BufferedImage img = null;
 	private int x;
 	private int y;
-	private float velocity;
+	private float velocity = 2;
 	private int direction;
 	
 	//CONSTRUTOR
@@ -28,7 +28,7 @@ public class Alien {
 		this.y = inicioY;
 		this.direction = direction;
 		
-		this.velocity = 2;
+		//this.velocity = 2;
 	}
 	
 	public void update() {
@@ -51,13 +51,10 @@ public class Alien {
 		//return img.getHeight(); //DEU 443 DE RETORNO, IMPOSSIVEL!!!
 		return 50;
 	}
-}
-
-/*
-	public void trocaDirecao() {
-		
-		direcao = direcao * -1;
+	
+	public void chaceDirection() {
+		direction = direction * -1;
 		y += 25;
-		velocidade += 0.25f;
+		velocity += 0.25f;
 	}
-*/
+}

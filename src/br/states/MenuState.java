@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import br.Game;
 import br.audio.AudioPlayer;
 import br.characters.Alien;
+import br.display.Background;
 
 public class MenuState implements State {
 	
@@ -19,6 +20,8 @@ public class MenuState implements State {
 	private Alien alien;
 	
 	private AudioPlayer themeSound;
+	
+	private Background background;
 	
 	public MenuState() {
 		themeSound = new AudioPlayer("/audio/theblackframe.mp3");
@@ -64,8 +67,8 @@ public class MenuState implements State {
 
 	@Override
 	public void render(Graphics g) {
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
+		background = new Background();
+		background.print(g);
 		
 		g.setColor(Color.WHITE);
 		g.setFont(font1);
