@@ -1,26 +1,29 @@
 package br.characters;
 
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 public class Collision {
 
-}
-
-/*
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-
-public class Explosao {
-
-	
-	private BufferedImage imagem;
+	private BufferedImage img;
 	private int x, y;
 	private float duracao;
 	private int animacaoTotal;
 	private int linha;
 	private int coluna;
 	
-	public Explosao(BufferedImage imagem, int x, int y) {
-		
-		this.imagem = imagem;
+	//CONSTRUTOR
+	public Collision(int x, int y) {
+		try {
+			img = ImageIO.read(new File("src/collision.png"));
+		} catch (IOException e) {
+			System.out.println("Não foi possível carregar a imagem da explosão");
+			e.printStackTrace();
+		}
 		this.x = x;
 		this.y = y;
 		
@@ -31,7 +34,14 @@ public class Explosao {
 		coluna = 0;
 	}
 	
-	
+	public void print(Graphics g) {
+		
+		g.drawImage(img, x, y, x + 50, y + 50, 192 * coluna, 192 * linha, 192 * coluna + 192, 192 * linha + 192, null);
+		
+	}
+}
+
+/*
 	public void atualizar() {
 		
 		duracao += 1f;
@@ -41,19 +51,10 @@ public class Explosao {
 		
 	}
 	
-	
-	public void pintar(Graphics2D g) {
-		
-		g.drawImage(imagem, x, y, x + 50, y + 50, 192 * coluna, 192 * linha, 192 * coluna + 192, 192 * linha + 192, null);
-		
-	}
-	
-	
 	public boolean acabou() {
 		if (duracao >= animacaoTotal)
 			return true;
 			
 		return false;
 	}
-}
 */

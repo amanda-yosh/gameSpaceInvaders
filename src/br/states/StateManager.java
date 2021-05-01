@@ -7,12 +7,14 @@ import java.awt.event.KeyListener;
 //GUARDARÁ UMA QUANTIDADE DE ESTADOS
 public class StateManager implements KeyListener{
 
-	public static final int numberStates = 2; //0 
-	public static State[] states = new State[numberStates];
+	public static final int NUMBERSTATES = 3; //0 1 2
+	public static State[] states = new State[NUMBERSTATES]; //ARRAY PARA GUARDAR OS ESTADOS
 	public static int currentState = 0;
 	
+	//PARA A SELEÇÃO DOS ESTADOS DO JOGO EM MENUSTATE
 	public static final int FPS = 0;
 	public static final int MENU = 1;
+	public static final int LEVEL1 = 2;
 	
 	public static void setState(int state) {
 		currentState = state;
@@ -27,6 +29,7 @@ public class StateManager implements KeyListener{
 		//POPULAR O ARRAY
 		states[0] = new FPSState();
 		states[1] = new MenuState();
+		states[2] = new Level1State();
 	}
 	
 	public void update() {
@@ -42,7 +45,7 @@ public class StateManager implements KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		states[currentState].KeyPress(e.getKeyCode());
+		states[currentState].KeyPressed(e.getKeyCode());
 	}
 
 	@Override

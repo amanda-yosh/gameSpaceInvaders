@@ -1,21 +1,29 @@
 package br.characters;
 
-import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class Alien {
 
-	//private BufferedImage desenho;
+	private BufferedImage img = null;
 	private int x;
 	private int y;
 	private float velocity;
 	private int direction;
 	
 	//CONSTRUTOR
-	public Alien(/*BufferedImage imagem,*/ int inicioX, int inicioY, int direction) {
-		
-		//this.desenho = imagem;
-		
+	public Alien(int inicioX, int inicioY, int direction) {
+		try {
+			img = ImageIO.read(new File("src/space-green-alien.png"));
+		} catch (IOException e) {
+			System.out.println("Não foi possível carregar a imagem do alien");
+			e.printStackTrace();
+		}
+
 		this.x = inicioX;
 		this.y = inicioY;
 		this.direction = direction;
@@ -28,9 +36,7 @@ public class Alien {
 	}
 	
 	public void print(Graphics g) {
-		//g.drawImage(desenho, x, y, x + 50, y + 50, 0, 0, desenho.getWidth(), desenho.getHeight(), null);
-		g.setColor(Color.GREEN);
-		g.fillRect(x, y, 50, 50);
+		g.drawImage(img, x, y, x + 50, y + 50, 0, 0, img.getWidth(), img.getHeight(), null);
 	}
 	
 	public int getX() {
@@ -40,21 +46,18 @@ public class Alien {
 	public int getY() {
 		return y;
 	}
+	
+	public int getHeight() {
+		//return img.getHeight(); //DEU 443 DE RETORNO, IMPOSSIVEL!!!
+		return 50;
+	}
 }
 
 /*
-public class Inimigo {
-
 	public void trocaDirecao() {
 		
 		direcao = direcao * -1;
 		y += 25;
 		velocidade += 0.25f;
 	}
-	
-	public int getTam() {
-		
-		return 50;
-	}
-} 
 */

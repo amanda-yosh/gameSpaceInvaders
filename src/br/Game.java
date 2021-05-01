@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
 import br.display.Display;
+import br.input.KeyManager;
 import br.states.StateManager;
 
 public class Game implements Runnable{
@@ -15,12 +16,15 @@ public class Game implements Runnable{
 	public static final int WIDTH = 800, HEIGHT = 1080;
 	
 	private StateManager sm;
+	private KeyManager km;
 	
 	public Game() {
 		display = new Display("Space Invaders", WIDTH, HEIGHT);
-		sm = new StateManager();
+		sm = new StateManager(); //ADMINISTRADOR DE ESTADOS
+		km = new KeyManager(); //ADMINISTRADOR DAS ENTRADAS
 		display.setKeyListener(sm);
-		sm.setState(1);
+		display.setKeyListener(km);
+		StateManager.setState(StateManager.MENU); //INICIALIZA NO MENU
 	}
 
 	@Override
@@ -46,38 +50,36 @@ public class Game implements Runnable{
 				//System.out.println("FPS = 60\nTempo de atualização: " + delta);
 				delta--; //VOLTA A SER 0
 			}
-
 		}
 		stop();
 	}
 	
-	private void init() {
-		
-	}
+	private void init() {}
 	
 	private void update() {
-		//Atualizacao a cada interacao do usuario
+		//ATUALIZA A CADA INTERACAO DO USUARIO
 		if (StateManager.getState() == null) return;
 		sm.update();
+		km.update(); //VERIFICAR O PRESSIONAMENTO DE TECLA A CADA UPDATE
 	}
 	
 	private void render() {
-		//a parte que sera desenhada
+		//REDESENHA
 		BufferStrategy bs = display.getBufferStrategy();
 		if (bs == null) {
 			display.createBufferStrategy();
 			bs = display.getBufferStrategy();
 		}
 		
-		Graphics g = bs.getDrawGraphics(); //trabalharemo em cima do objeto graphics
-		g.clearRect(0, 0, WIDTH, HEIGHT);
+		Graphics g = bs.getDrawGraphics(); 
+		g.clearRect(0, 0, WIDTH, HEIGHT); //LIMPAR A TELA
 		
 		if (StateManager.getState() != null) {
 			sm.render(g); //vai renderizar o desenho passado por cada fase
 		}
 		
-		g.dispose();//disponibilizando para uso
-		bs.show();
+		g.dispose(); //DISPONIBILIZA O GRAFICO
+		bs.show(); //DISPLAY DE BUFFER
 	}
 
 	/*MÉTODOS PARA PODERMOS LIGAR E DESLIGAR A THREAD

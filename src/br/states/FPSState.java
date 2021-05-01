@@ -43,13 +43,13 @@ public class FPSState implements State {
 	}
 
 	@Override
-	public void KeyPress(int cod) {
-
+	public void KeyPressed(int cod) {
+		System.out.println("Press " + cod);
 	}
 
 	@Override
 	public void KeyReleased(int cod) {
-		System.out.println("Release" + cod);
+		System.out.println("Release " + cod);
 	}
 
 }

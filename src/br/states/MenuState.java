@@ -6,45 +6,59 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
 import br.Game;
+import br.audio.AudioPlayer;
 import br.characters.Alien;
-import br.characters.Shot;
 
-public class MenuState implements State{
+public class MenuState implements State {
 	
 	private String[] options = { "START", "HELP", "EXIT" };
 	private Font font1, font2;
 	private int choice = 0;
-	private int x = 0, y = 0, movex = 1, movey = 1;
+	private int x = 0, y = 0, movex = 3, movey = 3; //POSICAO INICIAL, X=0 E Y=0; ACRESCIDO DO MOVIMENTO UNIFORME MOVEX=3 E MOVEY=3
 	
-	private Shot shot;
-	//private Alien alien;
+	private Alien alien;
+	
+	private AudioPlayer themeSound;
+	
+	public MenuState() {
+		themeSound = new AudioPlayer("/audio/theblackframe.mp3");
+	}
 
 	@Override
 	public void init() {
 		font1 = new Font("Dialog", Font.PLAIN, 48);
 		font2 = new Font("Dialog", Font.PLAIN, 24);
+		
+		themeSound.play();
 	}
 
+	//ANIMAÇÃO DO MENU
 	@Override
 	public void update() {
+		//A CADA TICK DA RENDERIZAÇAO DE TELA O OBJETO SE MOVE
 		x += movex;
 		y += movey;
 		
 		limits();
 	}
 
+	//ANIMAÇÃO DO MENU - LIMITANDO O OBJETO PARA NÃO SAIR DA TELA DE VISÃO
 	private void limits() {
-		if (x > Game.WIDTH) {
-			movex = -1;
+		//MARGIN RIGHT
+		if (x + 50 > Game.WIDTH) {
+			movex = -3;
 		}
-		if (y > Game.HEIGHT) {
-			movey = -1;
+		//BOTTOM
+		if (y + 80 > Game.HEIGHT) {
+			movey = -3;
 		}
+		//MARGIN LEFT
 		if (x < 0) {
-			movex = 1;
+			movex = 3;
 		}
+		//TOP
 		if (y < 0) {
-			movey = 1;
+			movey = 3;
 		}
 	}
 
@@ -68,20 +82,17 @@ public class MenuState implements State{
 			}
 			g.drawString(options[i],
 					Game.WIDTH/2 - g.getFontMetrics().stringWidth(options[i])/2,
-					 Game.HEIGHT * 3/4 + g.getFontMetrics(font2).getHeight() * i);
+					 Game.HEIGHT * 3/4 + g.getFontMetrics(font2).getHeight() * i); //+ FONTMETRICS X A ALTURA PARA ESPAÇAR AS OPÇÕES
 		}
 		
-		shot = new Shot(x, y);
-		shot.print(g);
-		//alien = new Alien(x+50, y+50, 100);
-		//alien.print(g);
-		
-
+		//ANIMAÇÃO DO MENU
+		alien = new Alien(x, y, 0);
+		alien.print(g);
 	}
 
 	//METODOS ONDE ACONTECE A INTERACAO
 	@Override
-	public void KeyPress(int cod) {
+	public void KeyPressed(int cod) {
 		
 	}
 
@@ -107,7 +118,7 @@ public class MenuState implements State{
 	private void select() {
 		switch (choice) {
 		case 0:
-			StateManager.setState(StateManager.FPS);
+			StateManager.setState(StateManager.LEVEL1);
 			break;
 		case 1:
 			break;
