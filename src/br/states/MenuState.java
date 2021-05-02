@@ -124,6 +124,7 @@ public class MenuState implements State {
 			StateManager.setState(StateManager.LEVEL1);
 			break;
 		case 1:
+			StateManager.setState(StateManager.HELP);
 			break;
 		case 2:
 			System.exit(0);

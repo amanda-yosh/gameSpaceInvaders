@@ -7,10 +7,12 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import br.Game;
+
 public class Alien {
 
 	private BufferedImage img = null;
-	private int x;
+	private int x, movex = 3;
 	private int y;
 	private float velocity = 2;
 	private int direction;
@@ -27,12 +29,11 @@ public class Alien {
 		this.x = inicioX;
 		this.y = inicioY;
 		this.direction = direction;
-		
-		//this.velocity = 2;
 	}
 	
 	public void update() {
-		x += velocity * direction;
+		x += movex;
+		limits();
 	}
 	
 	public void print(Graphics g) {
@@ -52,7 +53,18 @@ public class Alien {
 		return 50;
 	}
 	
-	public void chaceDirection() {
+	public void limits() {
+		//MARGIN RIGHT
+		if (x + 50 > Game.WIDTH) {
+			movex = -3;
+		}
+		//MARGIN LEFT
+		if (x < 0) {
+			movex = 3;
+		}
+	}
+	
+	public void chageDirection() {
 		direction = direction * -1;
 		y += 25;
 		velocity += 0.25f;

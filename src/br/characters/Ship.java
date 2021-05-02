@@ -16,7 +16,6 @@ public class Ship {
 	private int movex = 6; //VELOCIDADE DE MOVIMENTACAO DO OBJETO
 	//private boolean canShot;
 	//private int recharge;
-	//private int xInit = (int) Game.WIDTH/2;
 	
 	//CONSTRUTOR
 	public Ship() {
@@ -27,7 +26,7 @@ public class Ship {
 			e.printStackTrace();
 		}
 		
-		x = 400;//xInit; //683
+		x = 400;
 		//canShot = true;
 		//recharge = 0;
 	}
@@ -61,6 +60,14 @@ public class Ship {
 		if (x < 0) {
 			x = 0;
 		}
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return Game.HEIGHT - 150;
 	}
 }
 

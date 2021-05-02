@@ -9,13 +9,14 @@ public class KeyManager implements KeyListener {
 	//ARRAY DE VERDADEIRO OU FALSO SOBRE AS TECLAS
 	private boolean[] keys = new boolean[256];
 	
-	public static boolean a, d, left, right;
+	public static boolean a, d, left, right, space;
 	
 	public void update() {
 		a = keys[KeyEvent.VK_A]; //PASSA PARA A VARIÁVEL O VALOR DA CHAVE CORRESPONDENTE A CADA TECLA
 		d = keys[KeyEvent.VK_D];
 		left = keys[KeyEvent.VK_LEFT];
 		right = keys[KeyEvent.VK_RIGHT];
+		space = keys[KeyEvent.VK_SPACE];
 	}
 
 	@Override
