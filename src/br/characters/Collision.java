@@ -19,7 +19,7 @@ public class Collision {
 	//CONSTRUTOR
 	public Collision(int x, int y) {
 		try {
-			img = ImageIO.read(new File("src/collision.png"));
+			img = ImageIO.read(new File("src/explosao.png"));
 		} catch (IOException e) {
 			System.out.println("Não foi possível carregar a imagem da explosão");
 			e.printStackTrace();
@@ -35,9 +35,7 @@ public class Collision {
 	}
 	
 	public void print(Graphics g) {
-		
 		g.drawImage(img, x, y, x + 50, y + 50, 192 * coluna, 192 * linha, 192 * coluna + 192, 192 * linha + 192, null);
-		
 	}
 }
 

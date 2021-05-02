@@ -1,6 +1,7 @@
 package br.characters;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -14,11 +15,9 @@ public class Alien {
 	private BufferedImage img = null;
 	private int x, movex = 3;
 	private int y;
-	private float velocity = 2;
-	private int direction;
 	
 	//CONSTRUTOR
-	public Alien(int inicioX, int inicioY, int direction) {
+	public Alien(int inicioX, int inicioY) {
 		try {
 			img = ImageIO.read(new File("src/space-green-alien.png"));
 		} catch (IOException e) {
@@ -28,7 +27,6 @@ public class Alien {
 
 		this.x = inicioX;
 		this.y = inicioY;
-		this.direction = direction;
 	}
 	
 	public void update() {
@@ -53,6 +51,11 @@ public class Alien {
 		return 50;
 	}
 	
+	//CRIANDO UM RETANGULO EM VOLTA DO OBJETO
+	public Rectangle getBounds() {
+		return new Rectangle(x, y, 50, getHeight());
+	}
+	
 	public void limits() {
 		//MARGIN RIGHT
 		if (x + 50 > Game.WIDTH) {
@@ -62,11 +65,5 @@ public class Alien {
 		if (x < 0) {
 			movex = 3;
 		}
-	}
-	
-	public void chageDirection() {
-		direction = direction * -1;
-		y += 25;
-		velocity += 0.25f;
 	}
 }

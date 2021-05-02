@@ -32,7 +32,7 @@ public class Level2State implements State {
 		
 		//POPULANDO O ARRAY
 		for (int i = 0; i <= Game.WIDTH; i += Game.WIDTH/8) {
-			aliens.add(new Alien((Game.WIDTH * i)/10, Game.HEIGHT * 1/4, -1));
+			aliens.add(new Alien((Game.WIDTH * i)/10, Game.HEIGHT * 1/4));
 		}
 		
 		//start();

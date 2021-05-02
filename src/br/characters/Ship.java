@@ -1,9 +1,11 @@
 package br.characters;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -12,10 +14,9 @@ import br.Game;
 public class Ship {
 
 	private BufferedImage img = null;
-	private int x;
+	private int x = 400; //Game.WIDTH
 	private int movex = 6; //VELOCIDADE DE MOVIMENTACAO DO OBJETO
-	//private boolean canShot;
-	//private int recharge;
+	private ArrayList<Shot> shots; //PARA ALOCAR UMA QUANTIDADE DESCONHECIDA DE TIROS
 	
 	//CONSTRUTOR
 	public Ship() {
@@ -26,9 +27,7 @@ public class Ship {
 			e.printStackTrace();
 		}
 		
-		x = 400;
-		//canShot = true;
-		//recharge = 0;
+		shots = new ArrayList<Shot>();
 	}
 	
 	public void print(Graphics g) {
@@ -43,12 +42,6 @@ public class Ship {
 		}
 		
 		limits();
-		
-		/*if (recharge >= 10) {
-			canShot = true;
-			recharge = 0;
-		}
-		recharge++;*/
 	}
 	
 	public void limits() {
@@ -67,39 +60,25 @@ public class Ship {
 	}
 	
 	public int getY() {
-		return Game.HEIGHT - 150;
+		return Game.HEIGHT - 150; //NÃO SE MOVE EM Y
+	}
+	
+	public int getShipWidth() {
+		return 100; //img.getWidth();
+	}
+	
+	//CRIANDO UM RETANGULO EM VOLTA DO OBJETO
+	public Rectangle getBounds() {
+		return new Rectangle(x, getY(), getShipWidth(), getY());
+	}
+	
+	public void simpleShot() {
+		this.shots.add(new Shot(this.getX() + this.getShipWidth(), this.getY()));
+		Shot.setVisible(true);
+		//INSERIR TEMPO PARA RECARREGAR
+	}
+	
+	public ArrayList<Shot> getShots() {
+		return shots;
 	}
 }
-
-/*
-	//a nave retorna um tiro na posição em que ela está
-	public Tiro atirar() {
-		podeAtirar = false;
-		recarregando = 0;
-								//49 - é o meio da nave
-		Tiro novoTiro = new Tiro(x + 49, MainJogo.monitor.getHeight() - 150);
-		return novoTiro;
-	}
-	
-	public void movimenta(int valor) {
-		
-		//se valor for negativo <<<<
-		//se for positivo  >>>>
-		if (valor == 1) {
-			x += velocidade;
-		} else if (valor == -1) {
-			x -= velocidade;
-		}
-		
-		if (recarregando >= 10) {
-			podeAtirar = true;
-			recarregando = 0;
-		}
-		
-		recarregando++;
-	}
-	
-	public boolean podeAtirar() {
-		return podeAtirar;
-	}
-*/
