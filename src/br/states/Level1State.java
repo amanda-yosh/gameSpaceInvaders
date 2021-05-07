@@ -1,7 +1,9 @@
 package br.states;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.List;
 
 import br.Game;
 import br.characters.Alien;
@@ -13,25 +15,26 @@ import br.input.KeyManager;
 public class Level1State implements State {
 	
 	private Ship ship;
+	private List<Shot> shots;
 	private Alien alien;
 	private Background background;
-	private ArrayList<Shot> shots;
+	private static int qtdAliens = 8;
 
 	@Override
 	public void init() {
+		//INSTANCIANDO O SHIP
 		ship = new Ship();
+		
+		//PEGANDO A LISTA DE TIROS
+		shots = ship.getShots();
+		
+		//INSTANCIANDO O ALIEN
 		alien = new Alien(Game.WIDTH/2, Game.HEIGHT * 1/4);
-		shots = ship.getShots(); //PEGANDO A LISTA DE TIROS
-	}
-	
-	public void start() {
-		alien.update();
 	}
 
 	@Override
 	public void update() {
 		//INTERACAO DO USUARIO
-		//QUERO PARA DIREITA SUBTRAIR, ESQUERDA SOMAR
 		if (KeyManager.a || KeyManager.left) {
 			ship.moveShip(-1); //-1 PARA <<<
 		}
@@ -45,28 +48,48 @@ public class Level1State implements State {
 
 	@Override
 	public void render(Graphics g) {
-		background = new Background();
-		background.print(g);
 		
-		ship.print(g);
+			background = new Background();
+			background.print(g);
+			
+			//DESENHANDO O SHIP
+			ship.print(g);
 
-		alien.print(g);
-		start();
-		
-		for (int i = 0; i < shots.size(); i ++) {
-			Shot s = shots.get(i);
-			if (s.isVisible() == true) {
-				s.print(g);
-				s.move();
+			//DESENHANDO O ALIEN
+			alien.print(g);
+			
+			//MOVIMENTACAO DO ALIEN
+			alien.update();
+			
+			//DESENHANDO E MOVIMENTANDO OS TIROS
+			for (int e = 0; e < shots.size(); e++) {
+				Shot s = shots.get(e);
+				if (s.isVisible()) {
+					s.move();
+				}
+				else {
+					shots.remove(e);
+				}
 			}
-			else {
-				//destuir
-			}
+			
+			
+			checarColisoes();
 		}
-	}
+		//else {
+			//GAMEOVER CASO atGame == false
+			//StateManager.setState(StateManager.GAMEOVER);
+		//}
+	//}
 	
-	public void collisionCheck() {
+	private void checarColisoes() {
+		Rectangle formaShip = ship.getBounds();
+		Rectangle formaAlien = alien.getBounds();
+		Rectangle formaTiro;
 		
+		//COLISAO ENTRE O SHIP E O ALIEN
+		if (formaShip.intersects(formaAlien)) {
+			StateManager.setState(StateManager.GAMEOVER);
+		}
 	}
 
 	@Override

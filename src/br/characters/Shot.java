@@ -3,25 +3,34 @@ package br.characters;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import br.Game;
 
-public class Shot {
+public class Shot extends Character {
 
-	private int x, y; //POSICAO
 	private static int velocity = 7;
-	private int width = 15, height = 10; //LARGURA E ALTURA DO TIRO
+	private int width = 3, height = 20; //LARGURA E ALTURA DO TIRO
 	private static boolean isVisible = false; //TIRO DEIXARÁ DE SER VISIVEL QUANDO COLIDIR COM OUTRO OBJETO
 	
 	//CONSTRUTOR
 	public Shot(int inicioX, int inicioY) {
+		try {
+			img = ImageIO.read(new File("src/pinkShot.png"));
+		} catch (IOException e) {
+			System.out.println("Não foi possível carregar a imagem da nave");
+			e.printStackTrace();
+		}
+		
 		this.x = inicioX;
 		this.y = inicioY;
 	}
 	
 	public void print(Graphics g) {
-		g.setColor(Color.RED);
-		g.fillRect(x, y, width, height);
+		g.drawImage(img, x, y, x + width, y + 20, 0, 0, img.getWidth(), img.getHeight(), null);
 	}
 	
 	public void move() {
@@ -47,13 +56,6 @@ public class Shot {
 		Shot.isVisible = isVisible;
 	}
 
-	public int getX() {
-		return x;
-	}
-
-	public int getY() {
-		return y;
-	}
 	
 	//CRIANDO UM RETANGULO EM VOLTA DO OBJETO
 	public Rectangle getBounds() {
@@ -62,19 +64,3 @@ public class Shot {
 	
 	
 }
-
-/*
-	public boolean destroy() {
-		return y < 0; //retornar verdadeiro ou falso	
-	}
-
-	public boolean colideCom(Inimigo inimigo) {
-		if ( x >= inimigo.getX() && x + tamX <= inimigo.getX() + inimigo.getTam() ) {
-			if (y <= inimigo.getY() + inimigo.getTam()) {
-				return true;
-			}
-		}
-		return false;
-	}
-}
-*/

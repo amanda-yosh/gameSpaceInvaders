@@ -7,15 +7,16 @@ import java.awt.event.KeyListener;
 //GUARDARÁ UMA QUANTIDADE DE ESTADOS
 public class StateManager implements KeyListener{
 
-	public static final int NUMBERSTATES = 4; //0 1 2 3
+	public static final int NUMBERSTATES = 5; //0 1 2 3 4
 	public static State[] states = new State[NUMBERSTATES]; //ARRAY PARA GUARDAR OS ESTADOS
 	public static int currentState = 0;
 	
 	//PARA A SELEÇÃO DOS ESTADOS DO JOGO EM MENUSTATE
-	public static final int FPS = 0;
-	public static final int MENU = 1;
-	public static final int LEVEL1 = 2;
-	public static final int HELP = 3;
+	public static final int MENU = 0;
+	public static final int LEVEL1 = 1;
+	public static final int HELP = 2;
+	public static final int GAMEOVER = 3;
+	public static final int YOUWIN = 4;
 	
 	public static void setState(int state) {
 		currentState = state;
@@ -27,11 +28,12 @@ public class StateManager implements KeyListener{
 	}
 	
 	public StateManager() {
-		//POPULAR O ARRAY
-		states[0] = new FPSState();
-		states[1] = new MenuState();
-		states[2] = new Level1State();
-		states[3] = new HelpState();
+		//POPULAR O ARRAY INSTANCIANDO OS ESTADOS
+		states[0] = new MenuState();
+		states[1] = new Level1State();
+		states[2] = new HelpState();
+		states[3] = new GameOverState();
+		states[4] = new YouWinState();
 	}
 	
 	public void update() {

@@ -10,11 +10,10 @@ import javax.imageio.ImageIO;
 
 import br.Game;
 
-public class Alien {
+public class Alien extends Character {
 
-	private BufferedImage img = null;
-	private int x, movex = 3;
-	private int y;
+	private int movex = 3;
+
 	
 	//CONSTRUTOR
 	public Alien(int inicioX, int inicioY) {
@@ -38,22 +37,9 @@ public class Alien {
 		g.drawImage(img, x, y, x + 50, y + 50, 0, 0, img.getWidth(), img.getHeight(), null);
 	}
 	
-	public int getX() {
-		return x;
-	}
-	
-	public int getY() {
-		return y;
-	}
-	
-	public int getHeight() {
-		//return img.getHeight(); //DEU 443 DE RETORNO, IMPOSSIVEL!!!
-		return 50;
-	}
-	
 	//CRIANDO UM RETANGULO EM VOLTA DO OBJETO
 	public Rectangle getBounds() {
-		return new Rectangle(x, y, 50, getHeight());
+		return new Rectangle(x, y, 50, 50);
 	}
 	
 	public void limits() {

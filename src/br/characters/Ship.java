@@ -75,7 +75,7 @@ public class Ship {
 	public void simpleShot() {
 		this.shots.add(new Shot(this.getX() + this.getShipWidth(), this.getY()));
 		Shot.setVisible(true);
-		//INSERIR TEMPO PARA RECARREGAR
+		
 	}
 	
 	public ArrayList<Shot> getShots() {
