@@ -22,7 +22,7 @@ public class Alien extends Character {
 		this.x = inicioX;
 		this.y = inicioY;
 		
-		//isVisible = true;
+		isVisible = true;
 	}
 	
 	@Override
