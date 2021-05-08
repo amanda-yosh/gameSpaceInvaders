@@ -11,8 +11,8 @@ import br.characters.Shot;
 import br.display.Background;
 import br.input.KeyManager;
 
-public class Level1State implements State {
-	
+public class Level2State implements State {
+
 	private Ship ship;
 	private List<Shot> shots;
 	private Alien alien;
@@ -83,7 +83,7 @@ public class Level1State implements State {
 		//}
 		if (victory == true) {
 			//YouWinState CASO victory == true
-			StateManager.setState(StateManager.LEVEL2);
+			StateManager.setState(StateManager.YOUWIN);
 		}
 		//else {
 		if (gameOver == true) {
