@@ -36,6 +36,8 @@ public class GameOverState implements State {
 		g.drawString(text,
 				Game.WIDTH/2 - g.getFontMetrics().stringWidth(text)/2,
 				Game.HEIGHT * 1/10);
+		
+		g.setFont(font2);
 		text = "OS ALIENS CRUZARAM A GALÁXIA";
 		g.drawString(text,
 				Game.WIDTH/2 - g.getFontMetrics().stringWidth(text)/2,

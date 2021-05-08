@@ -1,6 +1,5 @@
 package br.characters;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.io.File;
@@ -13,27 +12,37 @@ import br.Game;
 public class Shot extends Character {
 
 	private static int velocity = 7;
-	private int width = 3, height = 20; //LARGURA E ALTURA DO TIRO
+	private int width = 6, height = 20; //LARGURA E ALTURA DO TIRO
 	private static boolean isVisible = false; //TIRO DEIXARÁ DE SER VISIVEL QUANDO COLIDIR COM OUTRO OBJETO
 	
 	//CONSTRUTOR
 	public Shot(int inicioX, int inicioY) {
+		this.load();
+		
+		//TIRO VAI SAIR DA POSIÇÃO DO PLAYER
+		this.x = inicioX;
+		this.y = inicioY;
+		
+		isVisible = true;
+	}
+	
+	@Override
+	public void load() {
 		try {
 			img = ImageIO.read(new File("src/pinkShot.png"));
 		} catch (IOException e) {
 			System.out.println("Não foi possível carregar a imagem da nave");
 			e.printStackTrace();
 		}
-		
-		this.x = inicioX;
-		this.y = inicioY;
 	}
 	
-	public void print(Graphics g) {
+	@Override
+	public void paint(Graphics g) {
 		g.drawImage(img, x, y, x + width, y + 20, 0, 0, img.getWidth(), img.getHeight(), null);
 	}
 	
-	public void move() {
+	@Override
+	public void update() {
 		y -= velocity;
 		if (y > Game.HEIGHT) {
 			isVisible = false;
@@ -56,8 +65,7 @@ public class Shot extends Character {
 		Shot.isVisible = isVisible;
 	}
 
-	
-	//CRIANDO UM RETANGULO EM VOLTA DO OBJETO
+	@Override
 	public Rectangle getBounds() {
 		return new Rectangle(x, y, width, height);
 	}

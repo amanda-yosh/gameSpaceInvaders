@@ -6,33 +6,41 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
 import br.Game;
 
-public class Ship {
+public class Ship extends Character {
 
-	private BufferedImage img = null;
-	private int x = 400; //Game.WIDTH
 	private int movex = 6; //VELOCIDADE DE MOVIMENTACAO DO OBJETO
-	private ArrayList<Shot> shots; //PARA ALOCAR UMA QUANTIDADE DESCONHECIDA DE TIROS
+	private List<Shot> shots; //PARA ALOCAR UMA QUANTIDADE DESCONHECIDA DE TIROS
 	
 	//CONSTRUTOR
 	public Ship() {
+		this.load();
+		
+		this.x = Game.WIDTH/2;
+		
+		shots = new ArrayList<Shot>();
+	}
+	
+	@Override
+	public void load() {
 		try {
 			img = ImageIO.read(new File("src/space-ship.png"));
 		} catch (IOException e) {
 			System.out.println("Não foi possível carregar a imagem da nave");
 			e.printStackTrace();
 		}
-		
-		shots = new ArrayList<Shot>();
 	}
 	
-	public void print(Graphics g) {
+	@Override
+	public void paint(Graphics g) {
 		g.drawImage(img, x, Game.HEIGHT - 150, x + 100, Game.HEIGHT - 150 + 100, 0, 0, img.getWidth(), img.getHeight(), null);
 	}
+	
 	
 	public void moveShip(int valor) {
 		if (valor == 1) {
@@ -55,10 +63,7 @@ public class Ship {
 		}
 	}
 	
-	public int getX() {
-		return x;
-	}
-	
+	@Override
 	public int getY() {
 		return Game.HEIGHT - 150; //NÃO SE MOVE EM Y
 	}
@@ -67,18 +72,18 @@ public class Ship {
 		return 100; //img.getWidth();
 	}
 	
-	//CRIANDO UM RETANGULO EM VOLTA DO OBJETO
+	@Override
 	public Rectangle getBounds() {
 		return new Rectangle(x, getY(), getShipWidth(), getY());
 	}
 	
 	public void simpleShot() {
-		this.shots.add(new Shot(this.getX() + this.getShipWidth(), this.getY()));
-		Shot.setVisible(true);
+		this.shots.add(new Shot(this.getX(), this.getY()));
+		//Shot.setVisible(true);
 		
 	}
 	
-	public ArrayList<Shot> getShots() {
+	public List<Shot> getShots() {
 		return shots;
 	}
 }

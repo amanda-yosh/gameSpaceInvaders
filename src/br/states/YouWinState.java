@@ -36,6 +36,8 @@ public class YouWinState implements State {
 		g.drawString(text,
 				Game.WIDTH/2 - g.getFontMetrics().stringWidth(text)/2,
 				Game.HEIGHT * 1/10);
+		
+		g.setFont(font2);
 		text = "VOCE FOI CAPAZ DE DESTRUIR TODOS OS ALIENS";
 		g.drawString(text,
 				Game.WIDTH/2 - g.getFontMetrics().stringWidth(text)/2,

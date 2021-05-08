@@ -2,7 +2,6 @@ package br.states;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.util.ArrayList;
 import java.util.List;
 
 import br.Game;
@@ -18,7 +17,10 @@ public class Level1State implements State {
 	private List<Shot> shots;
 	private Alien alien;
 	private Background background;
-	private static int qtdAliens = 8;
+	
+	//private boolean emJogo;
+	private boolean victory;
+	private boolean gameOver;
 
 	@Override
 	public void init() {
@@ -30,15 +32,19 @@ public class Level1State implements State {
 		
 		//INSTANCIANDO O ALIEN
 		alien = new Alien(Game.WIDTH/2, Game.HEIGHT * 1/4);
+		
+		//emJogo = true;
+		victory = false;
+		gameOver = false;
 	}
 
 	@Override
 	public void update() {
 		//INTERACAO DO USUARIO
-		if (KeyManager.a || KeyManager.left) {
+		if (KeyManager.a) {
 			ship.moveShip(-1); //-1 PARA <<<
 		}
-		if (KeyManager.d || KeyManager.right) {
+		if (KeyManager.d) {
 			ship.moveShip(1); //1 PARA >>>
 		}
 		if (KeyManager.space) {
@@ -49,14 +55,15 @@ public class Level1State implements State {
 	@Override
 	public void render(Graphics g) {
 		
+		//if (emJogo == true) {
 			background = new Background();
 			background.print(g);
 			
 			//DESENHANDO O SHIP
-			ship.print(g);
+			ship.paint(g);
 
 			//DESENHANDO O ALIEN
-			alien.print(g);
+			alien.paint(g);
 			
 			//MOVIMENTACAO DO ALIEN
 			alien.update();
@@ -65,30 +72,45 @@ public class Level1State implements State {
 			for (int e = 0; e < shots.size(); e++) {
 				Shot s = shots.get(e);
 				if (s.isVisible()) {
-					s.move();
+					s.paint(g);
+					s.update();
 				}
 				else {
 					shots.remove(e);
 				}
 			}
-			
-			
 			checarColisoes();
+		//}
+		if (victory == true) {
+			//YouWinState CASO victory == true
+			StateManager.setState(StateManager.YOUWIN);
 		}
 		//else {
-			//GAMEOVER CASO atGame == false
-			//StateManager.setState(StateManager.GAMEOVER);
-		//}
-	//}
+		if (gameOver == true) {
+			//GameOverState CASO emJogo == false
+			StateManager.setState(StateManager.GAMEOVER);
+		}
+	}
 	
 	private void checarColisoes() {
 		Rectangle formaShip = ship.getBounds();
 		Rectangle formaAlien = alien.getBounds();
-		Rectangle formaTiro;
+		Rectangle formaShot;
 		
 		//COLISAO ENTRE O SHIP E O ALIEN
 		if (formaShip.intersects(formaAlien)) {
-			StateManager.setState(StateManager.GAMEOVER);
+			//emJogo = false;
+			gameOver = true;
+		}
+		
+		//COLISAO ENTRE O SHOT E O ALIEN
+		List<Shot> shots = ship.getShots();
+		for (int i = 0; i < shots.size(); i++) {
+			Shot tempShot = shots.get(i);
+			formaShot = tempShot.getBounds();
+			if (formaShot.intersects(formaAlien)) {
+				victory = true;
+			}
 		}
 	}
 

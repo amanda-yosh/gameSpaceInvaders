@@ -90,7 +90,7 @@ public class MenuState implements State {
 		
 		//ANIMAÇÃO DO MENU
 		alien = new Alien(x, y);
-		alien.print(g);
+		alien.paint(g);
 	}
 
 	//METODOS ONDE ACONTECE A INTERACAO
